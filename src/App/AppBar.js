@@ -1,16 +1,42 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+
+const Logo = styled.div`
+  font-size: 1.5em;
+`
 
 const Bar = styled.div `
-  display:grid
+  display:grid;
+  margin-bottom: 40px;
   grid-template-columns: 180px auto 100px 100px;
 `
 
+const ControlButtonElem = styled.div`
+  cursor: pointer;
+  ${props => props.active && css`
+    text-shadow: 0px 0px 60px #03ff03;
+  `}
+`
+
+function toProperCase(lower) {
+  return lower.charAt(0).toUpperCase() + lower.substr(1);
+}
+
+const ControlButton = ({name, active}) => {
+  return (
+    <ControlButtonElem active={active}>
+      {toProperCase(name)}
+    </ControlButtonElem>
+  )
+}
+
 export default function AppBar() {
-  return <Bar>
-    <div> DazhCrypto </div>
-    <div></div>
-    <div> Dashboard </div>
-    <div> Settings </div>
-  </Bar>
+  return (
+    <Bar>
+      <Logo> DazhCrypto </Logo>
+      <div></div>
+      <ControlButton active name="dashboard" />
+      <ControlButton name="setttings"/>
+    </Bar>
+  );
 }
